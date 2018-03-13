@@ -1,0 +1,19 @@
+{
+  "name": "mongodbproj",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "http": "0.0.0",
+    "mongoose": "^5.0.9",
+    "path": "^0.12.7",
+    "request": "^2.85.0"
+  }
+}
