@@ -5,12 +5,12 @@ const Client = require('coinbase').Client;
 
 //local dependencies
 const COINBASE = require('./configs/coinbase');
-const CB_PARAMS = require('./configs/coinbaseParams.js')
+const CB_PARAMS = require('./configs/coinbaseParams.js');
 
 //initializing server
 const app = express();
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;;
 
 const {
   CURRENCY_CODE

@@ -1,6 +1,6 @@
-const API_KEY = 'API_KEY';
-const API_SECRET = 'API_SECRET';
-const VERSION = 'VERSION';
+const API_KEY = 'lOlEWHNXxiwlZAnR';
+const API_SECRET = 'V9cwswWKNoarKb2Jtuoq60C27STdN2O8';
+const VERSION = '2018-03-13';
 
 
 module.exports = {
