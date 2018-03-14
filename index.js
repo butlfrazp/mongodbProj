@@ -41,41 +41,31 @@ app.get("/", (req, res) => {
   });
 });
 
-// app.get("/currency", (req, res) => {
-//   client.getCurrencies(function(err, currencies) {
-//     if (err) {
-//       res.status(400).send(err);
-//       return;
-//     }
-//     res.send(currencies);
-//   });
-// });
+app.get("/currency", (req, res) => {
+  client.getCurrencies(function(err, currencies) {
+    if (err) {
+      res.status(400).send(err);
+      return;
+    }
+    res.send(currencies);
+  });
+});
 
 app.get("/currency/:country", (req, res) => {
   const param = req.params.country;
-  if (param == "") {
-      client.getCurrencies(function(err, currencies) {
-        if (err) {
-          res.status(400).send(err);
-          return;
-        }
-        res.send(currencies);
-      });
-  }else{
-    client.getCurrencies(function(err, currencies) {
-      if (err) {
-        res.status(400).send(err);
+  client.getCurrencies(function(err, currencies) {
+    if (err) {
+      res.status(400).send(err);
+      return;
+    }
+    for (var i = 0; i < currencies.data.length; i++) {
+      if (currencies.data[i].id == param) {
+        res.send(currencies.data[i]);
         return;
       }
-      for (var i = 0; i < currencies.data.length; i++) {
-        if (currencies.data[i].id == param) {
-          res.send(currencies.data[i]);
-          return;
-        }
-      }
-      res.status(400).send("Sorry could not find the currency");
-    });
-  }
+    }
+    res.status(400).send("Sorry could not find the currency");
+  });
 });
 
 app.get("/prices", (req, res) => {
