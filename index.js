@@ -3,6 +3,7 @@ const express = require('express');
 const request = require('request');
 const Client = require('coinbase').Client;
 const bodyParser = require('body-parser');
+const path = require('path');
 
 //local dependencies
 const COINBASE = require('./configs/coinbase');
@@ -11,6 +12,7 @@ const CB_PARAMS = require('./configs/coinbaseParams.js');
 //mongoose models
 const {Buy} = require('./server/models/buy');
 const {Sell} = require('./server/models/sell');
+const {account} = require('./server/misc/CBAccount');
 
 const {
   buy,
@@ -24,6 +26,10 @@ const {
 //initializing server
 const app = express();
 app.use(bodyParser.json());
+
+//creating path for public folder
+const publicPath = path.join(__dirname, "./public");
+app.use(express.static(publicPath));
 
 const PORT = process.env.PORT || 3000;;
 
@@ -47,12 +53,23 @@ app.listen(PORT, () => {
   console.log(`Started up on Port ${PORT}`);
 });
 
-app.get("/", (req, res) => {
-  client.getAccounts({}, function(err, accounts) {
+app.get("/myaccount", (req, res) => {
+  account(client, accounts => {
     res.send(accounts);
-    accounts.forEach(function(acct) {
-      console.log(acct.name + ': ' + acct.balance.amount + ' ' + acct.balance.currency);
+  });
+});
+
+app.get("/myaccount/balance", (req, res) => {
+  account(client, accounts => {
+    var balance = [];
+    accounts.map(amount => {
+      const data = {
+        amount: amount.balance.amount,
+        currency: amount.balance.currency
+      };
+      balance.push(data);
     });
+    res.send(balance);
   });
 });
 

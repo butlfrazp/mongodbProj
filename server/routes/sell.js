@@ -27,6 +27,7 @@ const sell = (req, res, client) => {
         res.status(400).send({message: `Sorry you cannot sell more ${symbol} than you have`});
         return;
       }
+      
       var quant = SELL_MAX < req.body.quantity ? SELL_MAX : quantity;
 
       const date = Date.now();
