@@ -73,9 +73,12 @@ app.get("/portfolio", (req, res) => {
 
 });
 
+<<<<<<< HEAD
 app.get("/past_transactions", (req, res) => {
 
 });
+=======
+>>>>>>> parent of 52125e1... refactor
 
 app.get("/currency", (req, res) => {
 
@@ -93,11 +96,14 @@ app.get("/prices/:country", (req, res) => {
 
 });
 
+<<<<<<< HEAD
 app.get("/holdings", (req, res) => {
 
 });
 
 app.get("/")
+=======
+>>>>>>> parent of 52125e1... refactor
 
 module.exports = {
   app
