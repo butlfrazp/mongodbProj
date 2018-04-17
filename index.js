@@ -101,6 +101,22 @@ app.get("/portfolio", (req, res) => {
   })
 });
 
+app.get("/past_transactions", (req, res) => {
+  var data = {};
+  Sell.find({}, (error, sell) => {
+    if (error) {
+      res.staus(400).send(error);
+    }
+    data["sell"] = sell;
+    Buy.find({}, (error, buy) => {
+      if (error) {
+        res.staus(400).send(error);
+      }
+      data["buy"] = buy;
+      res.send(data);
+    })
+  })
+})
 
 app.get("/currency", (req, res) => {
   allCurrencies(req, res, client);
@@ -118,6 +134,32 @@ app.get("/prices/:country", (req, res) => {
   getPrice(req, res, client);
 });
 
+app.get("/holdings", (req, res) => {
+  var data = {};
+  Buy.find({}, (error, buy) => {
+    if (error) {
+      res.staus(400).send(error);
+    }
+    buy.map(elem => {
+      if (!data[elem.symbol]) {
+        data[elem.symbol] = elem.quantity
+      }else{
+        data[elem.symbol] += elem.quantity;
+      }
+    });
+    Sell.find({}, (error, sell) => {
+      if (error) {
+        res.staus(400).send(error);
+      }
+      sell.map(elem => {
+        data[elem.symbol] -= elem.quantity;
+      });
+      res.send(data);
+    });
+  });
+});
+
+app.get("/")
 
 module.exports = {
   app
